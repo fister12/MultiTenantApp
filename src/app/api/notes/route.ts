@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { withSecureMemberRole, AuthenticatedRequest } from '@/lib/middleware';
 import { createTenantAwareDb } from '@/lib/db-helpers';
 import { validateNoteCreationLimit } from '@/lib/subscription';
+import { ApiResponse } from '@/types';
 import { 
   withErrorHandling, 
   createSuccessResponse, 
@@ -19,7 +20,7 @@ import {
  * POST /api/notes - Create a new note
  * Requirements: 4.1, 4.7
  */
-export const POST = withSecureMemberRole(withErrorHandling(async (req: AuthenticatedRequest): Promise<NextResponse> => {
+export const POST = withSecureMemberRole(withErrorHandling(async (req: AuthenticatedRequest) => {
   const user = req.user!;
   const tenantContext = req.tenantContext!;
   
@@ -70,7 +71,7 @@ export const POST = withSecureMemberRole(withErrorHandling(async (req: Authentic
  * GET /api/notes - List notes for the current tenant
  * Requirements: 4.2
  */
-export const GET = withSecureMemberRole(withErrorHandling(async (req: AuthenticatedRequest): Promise<NextResponse> => {
+export const GET = withSecureMemberRole(withErrorHandling(async (req: AuthenticatedRequest) => {
   const tenantContext = req.tenantContext!;
   const { searchParams } = new URL(req.url);
   

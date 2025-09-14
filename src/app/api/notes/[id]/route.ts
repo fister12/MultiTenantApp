@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { withSecureMemberRole, AuthenticatedRequest } from '@/lib/middleware';
 import { createTenantAwareDb } from '@/lib/db-helpers';
+import { ApiResponse } from '@/types';
 import { 
   withErrorHandling, 
   createSuccessResponse, 
@@ -23,7 +24,7 @@ export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ): Promise<NextResponse> {
-  return withSecureMemberRole(withErrorHandling(async (authReq: AuthenticatedRequest): Promise<NextResponse> => {
+  return withSecureMemberRole(withErrorHandling(async (authReq: AuthenticatedRequest) => {
     const tenantContext = authReq.tenantContext!;
     const { id: noteId } = await params;
     
@@ -74,7 +75,7 @@ export async function PUT(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ): Promise<NextResponse> {
-  return withSecureMemberRole(withErrorHandling(async (authReq: AuthenticatedRequest): Promise<NextResponse> => {
+  return withSecureMemberRole(withErrorHandling(async (authReq: AuthenticatedRequest) => {
     const user = authReq.user!;
     const tenantContext = authReq.tenantContext!;
     const { id: noteId } = await params;
@@ -144,7 +145,7 @@ export async function DELETE(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ): Promise<NextResponse> {
-  return withSecureMemberRole(withErrorHandling(async (authReq: AuthenticatedRequest): Promise<NextResponse> => {
+  return withSecureMemberRole(withErrorHandling(async (authReq: AuthenticatedRequest) => {
     const user = authReq.user!;
     const tenantContext = authReq.tenantContext!;
     const { id: noteId } = await params;
