@@ -18,7 +18,7 @@
     "configure-deployment": "node scripts/configure-vercel-deployment.js",
     "validate-deployment": "node scripts/validate-vercel-config.js",
     "postinstall": "prisma generate",
-    "vercel-build": "node scripts/setup-production-db.js && next build"
+    "vercel-build": "node scripts/vercel-build.js"
   },
   "dependencies": {
     "@prisma/client": "^6.16.1",
